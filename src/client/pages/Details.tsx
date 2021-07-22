@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Timeline = () => {
+const Details: React.FC<DetailsProps> = () => {
 
     return (
         <>
@@ -12,4 +12,6 @@ const Timeline = () => {
         )
 }
 
-export default Timeline;
+interface DetailsProps {}
+
+export default Details;
