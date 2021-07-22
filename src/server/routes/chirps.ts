@@ -1,47 +1,62 @@
-import { GetChirps, GetChirp, UpdateChirp, CreateChirp, DeleteChirp } from "../chirpstore";
-const express = require('express');
+import * as express from "express";
+import { GetChirps, GetChirp, UpdateChirp, CreateChirp, DeleteChirp } from "../utils/chirpstore";
 
 
 let router = express.Router();
 
 router.get('/:id?', (req, res) => {
-    
-    const chirps = GetChirps()
-    let chirpArr: any[] = []
-    Object.keys(chirps).map(key => chirpArr.push({ id: key, name: chirps[key].name, msg: chirps[key].msg }))
-    chirpArr.pop()
 
-    let id = req.params.id
+    let id: string = req.params.id
     if (id) {
         res.json(GetChirp(id));
     } else {
-        res.send(GetChirps());
+        const chirps = GetChirps();
+        let chirpArr: chirp[] = []
+
+        Object.keys(chirps).map(key => chirpArr.push(
+        { id: key, 
+            name: chirps[key].name, 
+            message: chirps[key].message 
+        }
+        ));
+        
+        chirpArr.pop(); //eliminate the nextid property
+
+        res.json(chirpArr);
     }
 });
 
 //post chirp
 router.post('/', (req, res) => {
-    console.log(req.body);
-    CreateChirp(req.body);
+    const chirpObj: chirp = req.body;
+
+    CreateChirp(chirpObj);
     res.sendStatus(200);
 });
 
 //this will update a chirp
+//mandatory id param to tell the server which chirp to update
 router.put('/:id', (req, res) => {
-    let id = req.params.id;
-    let chirp = req.body;
+    const id: string = req.params.id;
+    const chirpObj: chirp = req.body;
 
-    UpdateChirp(id, chirp);
-    return res.sendStatus(200);
+    UpdateChirp(id, chirpObj);
+    res.send("edited successfully");
 
 });
 
 //delete chirp
 router.delete('/:id', (req, res) => {
-    let id = req.params.id;
+    const id: string = req.params.id;
 
     DeleteChirp(id);
-    return res.sendStatus(200);
+    res.send("deleted successfully");
 });
+
+interface chirp {
+    id?: string, //question mark means the id is an optional property
+    name: string,
+    message: string
+}
 
 export default router;
