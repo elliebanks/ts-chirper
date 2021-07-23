@@ -1,7 +1,8 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import ChirpCard from './ChirpCard';
 import Details from './Details';
 import Compose from './Compose';
-import { useState, useEffect } from 'react';
 
 const Home: React.FC<HomeProps> = () => {
 
@@ -19,7 +20,7 @@ const Home: React.FC<HomeProps> = () => {
 
     return (
     <>
-        <Compose />
+        {chirps.map(chirp => <ChirpCard key={chirp.id} chirp={chirp}/>)}
         
     </>
     )

@@ -1,12 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const Compose: React.FC<ComposeProps> = () => {
 
     const history = useHistory();
-    const [user, setUser] = useState('');
-    const [message, setMessage] = useState('');
+    const [user, setUser] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
     //does this need to be useState('') or useState<Chirp[]>([]); ?
 
     const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -20,7 +20,7 @@ const Compose: React.FC<ComposeProps> = () => {
         let res = await fetch("/api/chirps", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user, message })
+            body: JSON.stringify({ user: user, message: message})
         });
         if (res.ok) {
             history.push('/');
