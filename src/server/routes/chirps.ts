@@ -15,7 +15,7 @@ router.get('/:id?', (req, res) => {
 
         Object.keys(chirps).map(key => chirpArr.push(
         { id: key, 
-            name: chirps[key].name, 
+            user: chirps[key].user, 
             message: chirps[key].message 
         }
         ));
@@ -55,7 +55,7 @@ router.delete('/:id', (req, res) => {
 
 interface chirp {
     id?: string, //question mark means the id is an optional property
-    name: string,
+    user: string,
     message: string
 }
 

@@ -1,12 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { IChirp } from '../utils/types';
 
 const Admin: React.FC<AdminProps> = () => {
 
     const history = useHistory();
-    const id = useParams();
+    const { id } = useParams<{ id: string }>();
 
+    const [chirp, setChirp] = useState<IChirp>({ id: id, user: '', message: ''});
     const [user, setUser] = useState<string>('');
     const [message, setMessage] = useState<string>('');
 

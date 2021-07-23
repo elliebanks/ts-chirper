@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+//import { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import Compose from './pages/Compose';
 import Admin from './pages/Admin';
@@ -21,10 +21,9 @@ const App: React.FC<AppProps> = () => {
 					<Route exact path="/details/:id">
 						<Details />
 					</Route>
-					<Route path="/admin/:id">
+					<Route exact path="/admin/:id">
 						<Admin />
 					</Route>
-					{/* <Route exact path="/Timeline"><Timeline /></Route> */}
 				</Switch>
 			</Router>
 
